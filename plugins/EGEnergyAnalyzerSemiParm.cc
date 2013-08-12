@@ -64,7 +64,8 @@ class EGEnergyAnalyzerSemiParm : public edm::EDAnalyzer {
       virtual void beginLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&);
       virtual void endLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&);
 
-      EGEnergyCorrectorSemiParm corfile;
+      EGEnergyCorrectorSemiParm corV4;
+      EGEnergyCorrectorSemiParm corV5;
       //EGEnergyCorrector cordb;
 
       // ----------member data ---------------------------
@@ -108,10 +109,12 @@ EGEnergyAnalyzerSemiParm::analyze(const edm::Event& iEvent, const edm::EventSetu
 {
    using namespace edm;
 
-  if (!corfile.IsInitialized()) {
-    corfile.Initialize("/afs/cern.ch/user/b/bendavid/CMSSWhgg/CMSSW_5_3_11_patch5/src/HiggsAnalysis/GBRLikelihoodEGTools/data/regweights_v4_forest_ph.root");
-    //corfile.Initialize("/afs/cern.ch/work/b/bendavid/bare/eregMergedAug11/regweights_v4_ph.root");
-    //corfile.Initialize(iSetup,"wgbrph",true);
+  if (!corV4.IsInitialized()) {
+    corV4.Initialize("/afs/cern.ch/user/b/bendavid/CMSSWhgg/CMSSW_5_3_11_patch5/src/HiggsAnalysis/GBRLikelihoodEGTools/data/regweights_v4_forest_ph.root");
+  }
+  
+  if (!corV5.IsInitialized()) {
+    corV5.Initialize("/afs/cern.ch/user/b/bendavid/CMSSWhgg/CMSSW_5_3_11_patch5/src/HiggsAnalysis/GBRLikelihoodEGTools/data/regweights_v5_forest_ph.root");
   }
 
   // get photon collection
@@ -131,10 +134,11 @@ EGEnergyAnalyzerSemiParm::analyze(const edm::Event& iEvent, const edm::EventSetu
     double ecor, sigma, alpha1, n1, alpha2, n2, pdfval;
 
     
-    corfile.CorrectedEnergyWithErrorV4(*it, *hVertexProduct, *hRho, lazyTools, iSetup,ecor, sigma, alpha1, n1, alpha2, n2, pdfval);
-
-
-    printf("file: sceta = %5f, default = %5f, corrected = %5f, sigma = %5f, alpha1 = %5f, n1 = %5f, alpha2 = %5f, n2 = %5f, pdfval = %5f\n", it->superCluster()->eta(), it->energy(),ecor,sigma,alpha1,n1,alpha2,n2,pdfval);
+    corV4.CorrectedEnergyWithErrorV4(*it, *hVertexProduct, *hRho, lazyTools, iSetup,ecor, sigma, alpha1, n1, alpha2, n2, pdfval);
+    printf("V4: sceta = %5f, default = %5f, corrected = %5f, sigma = %5f, alpha1 = %5f, n1 = %5f, alpha2 = %5f, n2 = %5f, pdfval = %5f\n", it->superCluster()->eta(), it->energy(),ecor,sigma,alpha1,n1,alpha2,n2,pdfval);
+    
+    corV5.CorrectedEnergyWithErrorV5(*it, *hVertexProduct, *hRho, lazyTools, iSetup,ecor, sigma, alpha1, n1, alpha2, n2, pdfval);
+    printf("V5: sceta = %5f, default = %5f, corrected = %5f, sigma = %5f, alpha1 = %5f, n1 = %5f, alpha2 = %5f, n2 = %5f, pdfval = %5f\n", it->superCluster()->eta(), it->energy(),ecor,sigma,alpha1,n1,alpha2,n2,pdfval);
 
   }  
 

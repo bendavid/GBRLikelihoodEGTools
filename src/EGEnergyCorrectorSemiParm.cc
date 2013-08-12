@@ -175,7 +175,7 @@ void EGEnergyCorrectorSemiParm::CorrectedEnergyWithErrorV4(const reco::Photon &p
   }
   else {
     //preshower energy ratio (endcap only)
-    _vals[29]  = s->preshowerEnergy()/s->rawEnergy();
+    _vals[28]  = s->preshowerEnergy()/s->rawEnergy();
   }
   
   double den;
@@ -289,7 +289,7 @@ void EGEnergyCorrectorSemiParm::CorrectedEnergyWithErrorV4(const reco::GsfElectr
   }
   else {
     //preshower energy ratio (endcap only)
-    _vals[29]  = s->preshowerEnergy()/s->rawEnergy();
+    _vals[28]  = s->preshowerEnergy()/s->rawEnergy();
   }
   
   double den;

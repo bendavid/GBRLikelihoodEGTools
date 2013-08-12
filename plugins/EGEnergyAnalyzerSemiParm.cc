@@ -109,7 +109,7 @@ EGEnergyAnalyzerSemiParm::analyze(const edm::Event& iEvent, const edm::EventSetu
    using namespace edm;
 
   if (!corfile.IsInitialized()) {
-    corfile.Initialize("/afs/cern.ch/user/b/bendavid/CMSSWhgg/CMSSW_5_3_11_patch5/src/HiggsAnalysis/GBRLikelihoodEGTools/data/regweights_v4_ph.root");
+    corfile.Initialize("/afs/cern.ch/user/b/bendavid/CMSSWhgg/CMSSW_5_3_11_patch5/src/HiggsAnalysis/GBRLikelihoodEGTools/data/regweights_v4_forest_ph.root");
     //corfile.Initialize("/afs/cern.ch/work/b/bendavid/bare/eregMergedAug11/regweights_v4_ph.root");
     //corfile.Initialize(iSetup,"wgbrph",true);
   }

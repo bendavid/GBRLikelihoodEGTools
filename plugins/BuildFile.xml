@@ -1,4 +1,4 @@
-<library   file="*.cc" name="RecoEgammaEgammaToolsPluginsNew">
+<library   file="*.cc" name="HiggsAnalysisGBRLikelihoodEGToolsPlugins">
   <flags   EDM_PLUGIN="1"/>
   <use   name="FWCore/Framework"/>
   <use   name="PhysicsTools/MVAComputer"/>

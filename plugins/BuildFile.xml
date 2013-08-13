@@ -1,4 +1,4 @@
-<library   file="*.cc" name="RecoEgammaEgammaToolsPlugins">
+<library   file="*.cc" name="HiggsAnalysisGBRLikelihoodEGToolsPlugins">
   <flags   EDM_PLUGIN="1"/>
   <use   name="FWCore/Framework"/>
   <use   name="PhysicsTools/MVAComputer"/>
@@ -10,4 +10,6 @@
   <use   name="DataFormats/EgammaCandidates"/>
   <use   name="RecoEgamma/EgammaTools"/>
   <use   name="HiggsAnalysis/GBRLikelihoodEGTools"/>
+<use name="root"/>
+<use name="roofit"/>
 </library>

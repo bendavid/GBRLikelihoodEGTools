@@ -78,9 +78,13 @@ void EGEnergyCorrectorSemiParm::Initialize(std::string regweights) {
     _sigmalim = new RooRealConstraint("sigmalim","",*_sigma,0.0002,0.5);
     _meanlim = new RooRealConstraint("meanlim","",*_mean,0.2,2.0);
     _n1lim = new RooRealConstraint("n1lim","",*_n1,1.01,110.);
-    _n2lim = new RooRealConstraint("n2lim","",*_n2,1.01,110.);     
+    _n2lim = new RooRealConstraint("n2lim","",*_n2,1.01,110.);
     
-    _pdf = new RooDoubleCBFast("sigpdf","",*_tgt,RooFit::RooConst(1.),*_sigmalim,RooFit::RooConst(2.0),*_n1lim,RooFit::RooConst(1.0),*_n2lim);
+    RooConstVar *cbmean = new RooConstVar("cbmean","",1.0);    
+    RooConstVar *alpha1 = new RooConstVar("alpha1","",2.0);
+    RooConstVar *alpha2 = new RooConstVar("alpha2","",1.0);
+    
+    _pdf = new RooDoubleCBFast("sigpdf","",*_tgt,*cbmean,*_sigmalim,*alpha1,*_n1lim,*alpha2,*_n2lim);
     
     //add to RooArgList for proper garbage collection
     _args.addOwned(*_tgt);
@@ -88,6 +92,9 @@ void EGEnergyCorrectorSemiParm::Initialize(std::string regweights) {
     _args.addOwned(*_sigma);
     _args.addOwned(*_n1);
     _args.addOwned(*_n2);
+    _args.addOwned(*cbmean);
+    _args.addOwned(*alpha1);
+    _args.addOwned(*alpha2);
     _args.addOwned(*_sigmalim);
     _args.addOwned(*_meanlim);
     _args.addOwned(*_n1lim);

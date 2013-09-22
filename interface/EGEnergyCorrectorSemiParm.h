@@ -16,12 +16,13 @@
 #include "DataFormats/EgammaCandidates/interface/GsfElectronFwd.h"
 #include "DataFormats/VertexReco/interface/VertexFwd.h"
 #include "RecoEgamma/EgammaTools/interface/EcalClusterLocal.h"
+#include "RooArgList.h"
 
 class RooWorkspace;
-class RooArgList;
 class RooRealVar;
 class RooAbsPdf;
 class RooAbsReal;
+class HybridGBRForest;
 class EcalClusterLazyTools;
 
 class EGEnergyCorrectorSemiParm {
@@ -34,25 +35,31 @@ class EGEnergyCorrectorSemiParm {
         
     void CorrectedEnergyWithErrorV4(const reco::Photon &p, const reco::VertexCollection& vtxcol, double rho, EcalClusterLazyTools &clustertools, const edm::EventSetup &es, double &ecor, double &cbsigma, double &cbalpha1, double &cbn1, double &cbalpha2, double &cbn2, double &pdfpeakval);
     void CorrectedEnergyWithErrorV4(const reco::GsfElectron &e, const reco::VertexCollection& vtxcol, double rho, EcalClusterLazyTools &clustertools, const edm::EventSetup &es, double &ecor, double &cbsigma, double &cbalpha1, double &cbn1, double &cbalpha2, double &cbn2, double &pdfpeakval);    
+
+    //V5 version folding detector along phi symmetries to avoid bias from MC intercalibration
+    void CorrectedEnergyWithErrorV5(const reco::Photon &p, const reco::VertexCollection& vtxcol, double rho, EcalClusterLazyTools &clustertools, const edm::EventSetup &es, double &ecor, double &cbsigma, double &cbalpha1, double &cbn1, double &cbalpha2, double &cbn2, double &pdfpeakval);
+    void CorrectedEnergyWithErrorV5(const reco::GsfElectron &e, const reco::VertexCollection& vtxcol, double rho, EcalClusterLazyTools &clustertools, const edm::EventSetup &es, double &ecor, double &cbsigma, double &cbalpha1, double &cbn1, double &cbalpha2, double &cbn2, double &pdfpeakval);        
     
   protected:
-    RooWorkspace *_ws; 
-    const RooArgList *_varseb;   
-    const RooArgList *_varsee;    
-    RooRealVar *_tgteb;
-    RooRealVar *_tgtee;    
-    RooAbsPdf *_pdfeb;
-    RooAbsPdf *_pdfee;
+    std::vector<float> _vals;
     
-    RooAbsReal *_meaneb;
-    RooAbsReal *_sigmaeb;
-    RooAbsReal *_n1eb;
-    RooAbsReal *_n2eb;
+    HybridGBRForest *_foresteb;
+    HybridGBRForest *_forestee;
+
+    RooRealVar *_mean;
+    RooRealVar *_tgt;
+    RooRealVar *_sigma;
+    RooRealVar *_n1;
+    RooRealVar *_n2;  
     
-    RooAbsReal *_meanee;
-    RooAbsReal *_sigmaee;
-    RooAbsReal *_n1ee;
-    RooAbsReal *_n2ee;    
+    RooAbsReal *_meanlim;
+    RooAbsReal *_sigmalim;
+    RooAbsReal *_n1lim;
+    RooAbsReal *_n2lim;        
+    
+    RooAbsPdf *_pdf;
+    
+    RooArgList _args;
     
     Bool_t _isInitialized;
     

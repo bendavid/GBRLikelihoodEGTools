@@ -85,6 +85,14 @@ double SigETransform::sigEoverETranformed(double sigEoverE, double sceta, double
   bool isbarrel = std::abs(sceta)<1.479;
   
   if (isbarrel) {
+    _eerrvarEB->setVal(-999.);
+    _eerrvarinvEB->setVal(-999.);
+    
+    _scetavarEB->setVal(-999.);
+    _scetavarinvEB->setVal(-999.);
+    
+    _energyvarEB->setVal(-999.);
+
     _eerrvarEB->setVal(sigEoverE);
     _eerrvarinvEB->setVal(sigEoverE);
     
@@ -98,6 +106,14 @@ double SigETransform::sigEoverETranformed(double sigEoverE, double sceta, double
     return sigEoverEtransformed;
   }
   else {
+    _eerrvarEE->setVal(-999.);
+    _eerrvarinvEE->setVal(-999.);
+    
+    _scetavarEE->setVal(-999.);
+    _scetavarinvEE->setVal(-999.);
+    
+    _energyvarEE->setVal(-999.);
+    
     _eerrvarEE->setVal(sigEoverE);
     _eerrvarinvEE->setVal(sigEoverE);
     
